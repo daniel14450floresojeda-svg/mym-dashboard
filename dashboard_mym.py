@@ -115,23 +115,16 @@ st.markdown("""
 
 # ── SIDEBAR INTERFAZ — CONTROL DE PALANCAS EN VIVO ──
 with st.sidebar:
-    st.markdown("""
-    <div class="sidebar-logo">
-        <h1>STARK BI</h1>
-        <div class="subtitle">Módulo de Postventa</div>
-    </div>
-    """, unsafe_allow_html=True)
-   
-    st.markdown('<div class="sb-section">Sección de Carga de Datos</div>', unsafe_allow_html=True)
-    archivos_cargados = st.file_uploader("Subí tu reporte de ventas xlsx (.xlsx)", type=["xlsx"], accept_multiple_files=True, label_visibility="collapsed")
-
-
-    st.markdown('<div class="sb-section">1. Margen Comercial Global</div>', unsafe_allow_html=True)
-    margen_repuestos = st.number_input("Margen Repuestos (%)", value=30, step=5)
-    coeficiente_costo = 1 / (1 + (margen_repuestos / 100))
-
-
-    st.markdown('<div class="sb-section">2. Dotación Activa (Mecánicos)</div>', unsafe_allow_html=True)
+        # Aquí cargamos tu logo desde el archivo que subiste a GitHub
+        if os.path.exists("logo_mym.png"):
+            st.image("logo_mym.png", use_container_width=True)
+        else:
+            st.markdown("""
+            <div class="sidebar-logo">
+                <h1>STARK BI</h1>
+                <div class="subtitle">Módulo de Postventa</div>
+            </div>
+            """, unsafe_allow_html=True)
    
     # Podés modificar los valores acá en vivo y todo el tablero se reajusta sin romperse
   # Definimos todas las sucursales con los nombres exactos

@@ -134,25 +134,25 @@ with st.sidebar:
     st.markdown('<div class="sb-section">2. Dotación Activa (Mecánicos)</div>', unsafe_allow_html=True)
    
     # Podés modificar los valores acá en vivo y todo el tablero se reajusta sin romperse
-    # Definimos todas las sucursales aquí
-    sucursales = ["KAWASAKI", "TRIUMPH", "CORRIENTES", "RESISTENCIA", "BREÑAS", "CHARATA", "ANGELA"]
+  # Definimos todas las sucursales con los nombres exactos
+    sucursales = ["KAWASAKI", "TRIUMPH", "CORRIENTES", "RESISTENCIA", "LAS BREÑAS", "CHARATA", "VILLA ANGELA"]
     
     # Creamos un diccionario para guardar los valores
     params = {}
     for s in sucursales:
         with st.expander(f"MYM - {s}"):
-            params[f"cf_{s}"] = st.number_input(f"Fijo {s}", value=2000000, step=100000)
-            params[f"cv_{s}"] = st.number_input(f"Variable {s}", value=300000, step=50000)
-            params[f"emp_{s}"] = st.number_input(f"Mecánicos {s}", value=2, step=1)
+            params[f"cf_{s}"] = st.number_input(f"Fijo {s}", value=2000000, step=100000, key=f"cf_{s}")
+            params[f"cv_{s}"] = st.number_input(f"Variable {s}", value=300000, step=50000, key=f"cv_{s}")
+            params[f"emp_{s}"] = st.number_input(f"Mecánicos {s}", value=2, step=1, key=f"emp_{s}")
 
-    # Asignamos las variables que tu código usa más abajo
+    # Asignamos las variables para que el resto de tu código no se rompa
     cf_kawasaki, cv_kawasaki, emp_kawasaki = params["cf_KAWASAKI"], params["cv_KAWASAKI"], params["emp_KAWASAKI"]
     cf_triumph, cv_triumph, emp_triumph = params["cf_TRIUMPH"], params["cv_TRIUMPH"], params["emp_TRIUMPH"]
     cf_corrientes, cv_corrientes, emp_corrientes = params["cf_CORRIENTES"], params["cv_CORRIENTES"], params["emp_CORRIENTES"]
     cf_resistencia, cv_resistencia, emp_resistencia = params["cf_RESISTENCIA"], params["cv_RESISTENCIA"], params["emp_RESISTENCIA"]
-    cf_brenas, cv_brenas, emp_brenas = params["cf_BREÑAS"], params["cv_BREÑAS"], params["emp_BREÑAS"]
+    cf_brenas, cv_brenas, emp_brenas = params["cf_LAS BREÑAS"], params["cv_LAS BREÑAS"], params["emp_LAS BREÑAS"]
     cf_charata, cv_charata, emp_charata = params["cf_CHARATA"], params["cv_CHARATA"], params["emp_CHARATA"]
-    cf_angela, cv_angela, emp_angela = params["cf_ANGELA"], params["cv_ANGELA"], params["emp_ANGELA"]
+    cf_angela, cv_angela, emp_angela = params["cf_VILLA ANGELA"], params["cv_VILLA ANGELA"], params["emp_VILLA ANGELA"]
 
 
     st.markdown('<div class="sb-section">Período Comercial</div>', unsafe_allow_html=True)

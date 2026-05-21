@@ -172,8 +172,28 @@ with st.sidebar:
 
 
 # ── PROCESAMIENTO MATEMÁTICO CONTABLE REAL ──
-sucursales_lista = ["MYM - KAWASAKI","MYM - TRIUMPH","MYM - CORRIENTES","MYM - RESISTENCIA","MYM - LAS BREÑAS","MYM - CHARATA","MYM - VILLA ANGELA"]
-palabras_clave = ["KAW", "TRIUMPH", "CORRIENTES", "RESISTENCIA", "BREÑAS", "CHARATA", "ANGELA"]
+# Intentamos obtener sucursales desde el Excel. Si falla, usa tu lista manual de siempre.
+if archivos_cargados:
+    try:
+        # Leemos el primer archivo para extraer las sucursales
+        df_base = pd.read_excel(archivos_cargados[0], engine='openpyxl')
+        df_base.columns = df_base.columns.astype(str).str.strip().str.lower()
+        col_suc = next((c for c in df_base.columns if 'sucursal' in c), None)
+        
+        if col_suc:
+            # Extraemos las sucursales únicas y las ordenamos
+            sucursales_detectadas = sorted(df_base[col_suc].dropna().astype(str).unique().tolist())
+            sucursales_lista = [f"MYM - {s.upper()}" for s in sucursales_detectadas]
+            palabras_clave = [s.split(' - ')[-1] if ' - ' in s else s for s in sucursales_lista]
+        else:
+            raise ValueError("Columna sucursal no encontrada")
+    except:
+        # Si algo falla, vuelve a tu lista original para no romper el programa
+        sucursales_lista = ["MYM - KAWASAKI","MYM - TRIUMPH","MYM - CORRIENTES","MYM - RESISTENCIA","MYM - LAS BREÑAS","MYM - CHARATA","MYM - VILLA ANGELA"]
+        palabras_clave = ["KAW", "TRIUMPH", "CORRIENTES", "RESISTENCIA", "BREÑAS", "CHARATA", "ANGELA"]
+else:
+    sucursales_lista = ["MYM - KAWASAKI","MYM - TRIUMPH","MYM - CORRIENTES","MYM - RESISTENCIA","MYM - LAS BREÑAS","MYM - CHARATA","MYM - VILLA ANGELA"]
+    palabras_clave = ["KAW", "TRIUMPH", "CORRIENTES", "RESISTENCIA", "BREÑAS", "CHARATA", "ANGELA"]
 
 
 motos_mes  = [0] * 7

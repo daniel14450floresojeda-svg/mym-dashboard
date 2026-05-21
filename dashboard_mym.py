@@ -134,31 +134,25 @@ with st.sidebar:
     st.markdown('<div class="sb-section">2. Dotación Activa (Mecánicos)</div>', unsafe_allow_html=True)
    
     # Podés modificar los valores acá en vivo y todo el tablero se reajusta sin romperse
-    with st.expander("MYM - Kawasaki (Alta Gama)"):
-        cf_kawasaki = st.number_input("Fijo KAW", value=4800000, step=100000, key="cf_kaw")
-        cv_kawasaki = st.number_input("Variable KAW", value=250000, step=50000, key="cv_kaw")
-        emp_kawasaki = st.number_input("Mecánicos KAW", value=3, step=1, key="emp_kaw") # Modificable en vivo
-       
-    with st.expander("MYM - Triumph (Alta Gama)"):
-        cf_triumph = st.number_input("Fijo TRI", value=2800000, step=100000, key="cf_tri")
-        cv_triumph = st.number_input("Variable TRI", value=600000, step=50000, key="cv_tri")
-        emp_triumph = st.number_input("Mecánicos TRI", value=1, step=1, key="emp_tri")
-       
-    with st.expander("MYM - Corrientes (Estándar)"):
-        cf_corrientes = st.number_input("Fijo COR", value=2100000, step=100000, key="cf_cor")
-        cv_corrientes = st.number_input("Variable COR", value=400000, step=50000, key="cv_cor")
-        emp_corrientes = st.number_input("Mecánicos COR", value=5, step=1, key="emp_cor")
+    # Definimos todas las sucursales aquí
+    sucursales = ["KAWASAKI", "TRIUMPH", "CORRIENTES", "RESISTENCIA", "BREÑAS", "CHARATA", "ANGELA"]
+    
+    # Creamos un diccionario para guardar los valores
+    params = {}
+    for s in sucursales:
+        with st.expander(f"MYM - {s}"):
+            params[f"cf_{s}"] = st.number_input(f"Fijo {s}", value=2000000, step=100000)
+            params[f"cv_{s}"] = st.number_input(f"Variable {s}", value=300000, step=50000)
+            params[f"emp_{s}"] = st.number_input(f"Mecánicos {s}", value=2, step=1)
 
-
-    with st.expander("MYM - Resistencia (Estándar)"):
-        cf_resistencia = st.number_input("Fijo RES", value=3200000, step=100000, key="cf_res")
-        cv_resistencia = st.number_input("Variable RES", value=600000, step=50000, key="cv_res")
-        emp_resistencia = st.number_input("Mecánicos RES", value=6, step=1, key="emp_res")
-
-
-    cf_brenas, cv_brenas, emp_brenas = 1200000, 200000, 2
-    cf_charata, cv_charata, emp_charata = 1100000, 150000, 2
-    cf_angela, cv_angela, emp_angela = 1300000, 250000, 2
+    # Asignamos las variables que tu código usa más abajo
+    cf_kawasaki, cv_kawasaki, emp_kawasaki = params["cf_KAWASAKI"], params["cv_KAWASAKI"], params["emp_KAWASAKI"]
+    cf_triumph, cv_triumph, emp_triumph = params["cf_TRIUMPH"], params["cv_TRIUMPH"], params["emp_TRIUMPH"]
+    cf_corrientes, cv_corrientes, emp_corrientes = params["cf_CORRIENTES"], params["cv_CORRIENTES"], params["emp_CORRIENTES"]
+    cf_resistencia, cv_resistencia, emp_resistencia = params["cf_RESISTENCIA"], params["cv_RESISTENCIA"], params["emp_RESISTENCIA"]
+    cf_brenas, cv_brenas, emp_brenas = params["cf_BREÑAS"], params["cv_BREÑAS"], params["emp_BREÑAS"]
+    cf_charata, cv_charata, emp_charata = params["cf_CHARATA"], params["cv_CHARATA"], params["emp_CHARATA"]
+    cf_angela, cv_angela, emp_angela = params["cf_ANGELA"], params["cv_ANGELA"], params["emp_ANGELA"]
 
 
     st.markdown('<div class="sb-section">Período Comercial</div>', unsafe_allow_html=True)

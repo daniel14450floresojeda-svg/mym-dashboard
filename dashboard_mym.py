@@ -1,7 +1,36 @@
 import streamlit as st
 import pandas as pd
 import os
+# --- NUEVO BLOQUE DE SEGURIDAD ---
+def check_password():
+    """Devuelve True si el usuario ingresó la contraseña correcta."""
+    def password_entered():
+        if (st.session_state["username"] in st.secrets["passwords"] and 
+            st.session_state["password"] == st.secrets["passwords"][st.session_state["username"]]):
+            st.session_state["password_correct"] = True
+            del st.session_state["password"]
+            del st.session_state["username"]
+        else:
+            st.session_state["password_correct"] = False
 
+    if "password_correct" not in st.session_state:
+        st.text_input("Usuario", key="username")
+        st.text_input("Contraseña", type="password", key="password")
+        st.button("Ingresar", on_click=password_entered)
+        return False
+    elif not st.session_state["password_correct"]:
+        st.text_input("Usuario", key="username")
+        st.text_input("Contraseña", type="password", key="password")
+        st.button("Ingresar", on_click=password_entered)
+        st.error("Usuario o contraseña incorrectos")
+        return False
+    else:
+        return True
+
+# Si la contraseña no es correcta, detenemos el resto de la ejecución
+if not check_password():
+    st.stop()
+# --- FIN DEL BLOQUE ---
 
 # 1. CONFIGURACIÓN DE PÁGINA
 st.set_page_config(

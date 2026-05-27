@@ -217,8 +217,7 @@ if archivos_cargados:
             col_sucursal = next((c for c in df_excel.columns if 'sucursal' in c), None)
             col_total    = next((c for c in df_excel.columns if 'total' in c), None)
             col_desc = next((c for c in df_excel.columns if any(p in c for p in ['articulo', 'artículo', 'descripcion', 'detalle', 'concepto'])), None)
-            col_orden = next((c for c in df_excel.columns if any(p in c for p in ['remito', 'comprobante', 'factura', 'orden', 'codigo', 'código'])), None)
-            col_grupo = next((c for c in df_excel.columns if 'grupo' in c), None)
+            col_orden = next((c for c in df_excel.columns if any(p in c for p in ['remito', 'comprobante', 'factura', 'orden'])), None)
            
             if col_sucursal and col_total:
                 df_excel[col_total] = pd.to_numeric(df_excel[col_total], errors='coerce').fillna(0.0)
@@ -229,16 +228,7 @@ if archivos_cargados:
                     if not filtro.empty:
                         ingresos_totales[i] += float(filtro[col_total].sum())
                        
-                        if col_grupo:
-                            es_servicio = filtro[col_grupo].astype(str).str.upper().str.contains("SERVICIO TECNICO", na=False)
-                            filtro_motos = filtro[es_servicio]
-                            if col_orden and not filtro_motos.empty:
-                                motos_mes[i] += filtro_motos[col_orden].nunique()
-                            else:
-                                motos_mes[i] += filtro_motos.shape[0]
-                            filtro_repuestos = filtro[~es_servicio]
-                            costos_mercaderia[i] += float(filtro_repuestos[col_total].sum() * coeficiente_costo)
-                        elif col_desc:
+                        if col_desc:
                             es_servicio = filtro[col_desc].astype(str).str.contains("SERVI|MANO|OBRA|TALLER", case=False, na=False)
                             filtro_motos = filtro[es_servicio]
                            

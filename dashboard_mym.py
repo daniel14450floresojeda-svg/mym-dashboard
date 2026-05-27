@@ -164,7 +164,7 @@ with st.sidebar:
    
     # Podés modificar los valores acá en vivo y todo el tablero se reajusta sin romperse
    # Definimos todas las sucursales con los nombres exactos
-    sucursales = ["KAWASAKI", "TRIUMPH", "CORRIENTES", "RESISTENCIA", "LAS BREÑAS", "CHARATA", "VILLA ANGELA"]
+    sucursales = ["KAWASAKI", "TRIUMPH", "CORRIENTES", "RESISTENCIA", "LAS BREÑAS", "CHARATA", "YAMAHA"]
     
     # Creamos un diccionario para guardar los valores
     params = {}
@@ -173,7 +173,8 @@ with st.sidebar:
             params[f"cf_{s}"] = st.number_input(f"Fijo {s}", value=2000000, step=100000, key=f"cf_{s}")
             params[f"cv_{s}"] = st.number_input(f"Variable {s}", value=300000, step=50000, key=f"cv_{s}")
             params[f"emp_{s}"] = st.number_input(f"Mecánicos {s}", value=2, step=1, key=f"emp_{s}")
-
+          
+ 
     # Asignamos las variables para que el resto de tu código no se rompa
     cf_kawasaki, cv_kawasaki, emp_kawasaki = params["cf_KAWASAKI"], params["cv_KAWASAKI"], params["emp_KAWASAKI"]
     cf_triumph, cv_triumph, emp_triumph = params["cf_TRIUMPH"], params["cv_TRIUMPH"], params["emp_TRIUMPH"]
@@ -181,7 +182,7 @@ with st.sidebar:
     cf_resistencia, cv_resistencia, emp_resistencia = params["cf_RESISTENCIA"], params["cv_RESISTENCIA"], params["emp_RESISTENCIA"]
     cf_brenas, cv_brenas, emp_brenas = params["cf_LAS BREÑAS"], params["cv_LAS BREÑAS"], params["emp_LAS BREÑAS"]
     cf_charata, cv_charata, emp_charata = params["cf_CHARATA"], params["cv_CHARATA"], params["emp_CHARATA"]
-    cf_angela, cv_angela, emp_angela = params["cf_VILLA ANGELA"], params["cv_VILLA ANGELA"], params["emp_VILLA ANGELA"]
+    cf_yamaha, cv_yamaha, emp_yamaha = params["cf_YAMAHA"], params["cv_YAMAHA"], params["emp_YAMAHA"]
 
 
     st.markdown('<div class="sb-section">Período Comercial</div>', unsafe_allow_html=True)
@@ -195,16 +196,16 @@ with st.sidebar:
 
 
 # ── PROCESAMIENTO MATEMÁTICO CONTABLE REAL ──
-sucursales_lista = ["MYM - KAWASAKI","MYM - TRIUMPH","MYM - CORRIENTES","MYM - RESISTENCIA","MYM - LAS BREÑAS","MYM - CHARATA","MYM - VILLA ANGELA"]
-palabras_clave = ["KAW", "TRIUMPH", "CORRIENTES", "RESISTENCIA", "BREÑAS", "CHARATA", "ANGELA"]
+sucursales_lista = ["MYM - KAWASAKI","MYM - TRIUMPH","MYM - CORRIENTES","MYM - RESISTENCIA","MYM - LAS BREÑAS","MYM - CHARATA","MYM - YAMAHA"]
+palabras_clave = ["KAW", "TRIUMPH", "CORRIENTES", "RESISTENCIA", "BREÑAS", "CHARATA", "YAMAHA"]
 
 
 motos_mes  = [0] * 7
 ingresos_totales = [0.0] * 7
 costos_mercaderia = [0.0] * 7
-costos_fijos     = [cf_kawasaki, cf_triumph, cf_corrientes, cf_resistencia, cf_brenas, cf_charata, cf_angela]
-costos_variables = [cv_kawasaki, cv_triumph, cv_corrientes, cv_resistencia, cv_brenas, cv_charata, cv_angela]
-dotacion         = [emp_kawasaki, emp_triumph, emp_corrientes, emp_resistencia, emp_brenas, emp_charata, emp_angela]
+costos_fijos     = [cf_kawasaki, cf_triumph, cf_corrientes, cf_resistencia, cf_brenas, cf_charata, cf_yamaha]
+costos_variables = [cv_kawasaki, cv_triumph, cv_corrientes, cv_resistencia, cv_brenas, cv_charata, cv_yamaha]
+dotacion         = [emp_kawasaki, emp_triumph, emp_corrientes, emp_resistencia, emp_brenas, emp_charata, emp_yamaha]
 
 
 if archivos_cargados:
